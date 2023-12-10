@@ -1,5 +1,6 @@
 const express = require("express");
 const connectingMongoDB = require("./configuration/mDBConnection");
+const cors = require("cors");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
@@ -12,6 +13,7 @@ dotenv.config({ path: "./config.env" });
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 console.log(process.env.NODE_ENV);
 
 connectingMongoDB();
