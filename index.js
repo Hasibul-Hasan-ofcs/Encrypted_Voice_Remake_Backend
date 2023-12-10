@@ -16,6 +16,7 @@ console.log(process.env.NODE_ENV);
 
 connectingMongoDB();
 
+app.use("/", (req, res) => console.log("welcome to encrypted voice"));
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
