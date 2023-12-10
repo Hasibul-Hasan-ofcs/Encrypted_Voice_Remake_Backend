@@ -33,7 +33,11 @@ const socketIO = require("socket.io")(server, {
   pingTimeout: 100000,
   cors: {
     origin: "http://localhost:5173",
-  },
+	methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
+        credentials: true
+    },
+    allowEIO3: true
 });
 
 socketIO.on("connection", (socket) => {
