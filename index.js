@@ -39,7 +39,7 @@ const server = app.listen(PORT, console.log(`server running at ${PORT}...`));
 
 const socketIO = require("socket.io")(server, {
   cors: {
-    origin: "https://encrypted-voice-remake-frontend.vercel.app",
+    origin: "*",
     methods: ["GET", "POST"],
     transports: ["websocket", "polling"],
     credentials: true,
