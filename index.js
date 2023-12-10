@@ -27,35 +27,35 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 3001;
 const server = app.listen(PORT, console.log(`server running at ${PORT}...`));
 
-// const socketIO = require("socket.io")(server, {
-//   pingTimeout: 100000,
-//   cors: {
-//     origin: "http://localhost:3000",
-//   },
-// });
+const socketIO = require("socket.io")(server, {
+  pingTimeout: 100000,
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
 
-// socketIO.on("connection", (socket) => {
-//   console.log("Connected to socket io");
+socketIO.on("connection", (socket) => {
+  console.log("Connected to socket io");
 
-//   socket.on("setup", (userData) => {
-//     socket.join(userData._id);
-//     socket.emit("connected");
-//   });
+  socket.on("setup", (userData) => {
+    socket.join(userData._id);
+    socket.emit("connected");
+  });
 
-//   socket.on("joinroom", (room) => {
-//     socket.join(room);
-//     console.log("user joined the room " + room);
-//   });
+  socket.on("joinroom", (room) => {
+    socket.join(room);
+    console.log("user joined the room " + room);
+  });
 
-//   socket.on("newmessage", (messageRecieved) => {
-//     let chat = messageRecieved.chat;
+  socket.on("newmessage", (messageRecieved) => {
+    let chat = messageRecieved.chat;
 
-//     if (!chat.users) return console.log("chat.users not found.");
+    if (!chat.users) return console.log("chat.users not found.");
 
-//     chat.users.forEach((user) => {
-//       if (user._id == messageRecieved.sender._id) return;
+    chat.users.forEach((user) => {
+      if (user._id == messageRecieved.sender._id) return;
 
-//       socket.in(user._id).emit("message recieved", messageRecieved);
-//     });
-//   });
-// });
+      socket.in(user._id).emit("message recieved", messageRecieved);
+    });
+  });
+});
