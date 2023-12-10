@@ -12,8 +12,8 @@ const {
 dotenv.config({ path: "./config.env" });
 
 const app = express();
+app.use(cors({ origin: 'https://encrypted-voice-remake-frontend.vercel.app' }));
 app.use(express.json());
-app.use(cors());
 console.log(process.env.NODE_ENV);
 
 connectingMongoDB();
