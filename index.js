@@ -12,7 +12,16 @@ const {
 dotenv.config({ path: "./config.env" });
 
 const app = express();
-app.use(cors());
+const options = [
+  cors({
+    origin: 'https://encrypted-voice-remake-frontend.vercel.app',
+    methods: '*',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  })
+];
+
+app.use(options);
 app.use(express.json());
 console.log(process.env.NODE_ENV);
 
