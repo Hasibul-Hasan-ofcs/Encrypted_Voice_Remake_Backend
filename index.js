@@ -30,12 +30,11 @@ const PORT = process.env.PORT || 3001;
 const server = app.listen(PORT, console.log(`server running at ${PORT}...`));
 
 const socketIO = require("socket.io")(server, {
-  pingTimeout: 100000,
   cors: {
     origin: "https://encrypted-voice-remake-frontend.vercel.app",
 	methods: ["GET", "POST"],
-        transports: ['websocket', 'polling'],
-        credentials: true
+    transports: ['websocket', 'polling'],
+    credentials: true
     },
     allowEIO3: true
 });
