@@ -12,13 +12,12 @@ const {
 dotenv.config({ path: "./config.env" });
 
 const app = express();
-app.use(cors({ origin: 'https://encrypted-voice-remake-frontend.vercel.app' }));
+app.use(cors());
 app.use(express.json());
 console.log(process.env.NODE_ENV);
 
 connectingMongoDB();
 
-app.use("/", (req, res) => res.send("welcome to encrypted voice"));
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
@@ -32,11 +31,11 @@ const server = app.listen(PORT, console.log(`server running at ${PORT}...`));
 const socketIO = require("socket.io")(server, {
   cors: {
     origin: "https://encrypted-voice-remake-frontend.vercel.app",
-	methods: ["GET", "POST"],
-    transports: ['websocket', 'polling'],
-    credentials: true
-    },
-    allowEIO3: true
+    methods: ["GET", "POST"],
+    transports: ["websocket", "polling"],
+    credentials: true,
+  },
+  allowEIO3: true,
 });
 
 socketIO.on("connection", (socket) => {
